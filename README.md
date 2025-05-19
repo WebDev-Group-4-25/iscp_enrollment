@@ -12,7 +12,7 @@ A simple web-based **Student Enrollment System** for a small college, built with
 - Display enrolled students per course
 - Preloaded with:
   - 🧑‍🎓 Top 12 Senators (PH May 2025 Elections)
-  - 🏫 Meme-tastic ISCP-style courses (e.g., *BS in Sabong Analytics*)
+  - 🏫 Meme-tastic ISCP-style courses (e.g., _BS in Sabong Analytics_)
 
 ---
 
@@ -74,7 +74,7 @@ Run the setup script to:
 Start Apache + MySQL in your local server (XAMPP or MAMP), then visit:
 
 ```
-http://localhost/student-enrollment-iscp/artisan.php
+http://localhost/folder-name/artisan.php
 ```
 
 #### Or run via terminal:
@@ -100,14 +100,24 @@ Sample students inserted and randomly enrolled in courses.
 ```
 /student-enrollment-iscp
 │
-├── artisan.php              # Database setup script
-├── db.php                   # DB connection (used via include)
-├── header.php / footer.php  # Shared UI components
-├── students.php             # List all students
-├── add_student.php          # Add new student form
-├── courses.php              # Manage courses
-├── enroll.php               # Enroll a student in a course
-└── README.md                # This file
+├── /includes/                     # Shared components
+│   ├── db.php                     # Database connection
+│   ├── header.php                 # Shared page header
+│   └── footer.php                 # Shared page footer
+│
+├── /pages/                        # Core application pages
+│   ├── students.php               # List all students
+│   ├── add_student.php            # Add new student
+│   ├── courses.php                # Manage courses
+│   └── enroll.php                 # Enroll students in courses
+│
+├── /assets/                       # CSS, JS, images (optional)
+│   ├── /css/
+│   └── /js/
+│
+├── artisan.php                   # Run-once database setup script
+├── index.php                     # Optional: redirect to students.php or dashboard
+└── README.md
 ```
 
 ---
@@ -115,6 +125,7 @@ Sample students inserted and randomly enrolled in courses.
 ## 🧪 Sample Data
 
 ### 🧑‍🎓 Students (Senators 2025)
+
 - Bong Go
 - Bam Aquino
 - Ronald dela Rosa
@@ -129,6 +140,7 @@ Sample students inserted and randomly enrolled in courses.
 - Imee Marcos
 
 ### 📚 Courses
+
 - BS in Traffic Management and Advanced Chismis
 - BS in Professional Line Sitting
 - BS in Barangay Diplomacy
