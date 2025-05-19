@@ -104,17 +104,20 @@ Sample students inserted and randomly enrolled in courses.
 │   ├── db.php                     # Database connection
 │   ├── header.php                 # Shared page header
 │   └── footer.php                 # Shared page footer
+│   └── session.php                # Manage session
 │
 ├── /pages/                        # Core application pages
 │   ├── students.php               # List all students
 │   ├── add_student.php            # Add new student
 │   ├── courses.php                # Manage courses
 │   └── enroll.php                 # Enroll students in courses
+│   └── login.php                  # Manage admin log-in
+│   └── logout.php                 # Manage admin log-out
 │
 ├── /assets/                       # CSS, JS, images (optional)
 │   ├── /css/
+│   └── /images/
 │   └── /js/
-│
 ├── artisan.php                   # Run-once database setup script
 ├── index.php                     # Optional: redirect to students.php or dashboard
 └── README.md
