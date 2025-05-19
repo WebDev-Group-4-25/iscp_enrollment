@@ -100,27 +100,31 @@ Sample students inserted and randomly enrolled in courses.
 ```
 /student-enrollment-iscp
 │
-├── /includes/                     # Shared components
-│   ├── db.php                     # Database connection
-│   ├── header.php                 # Shared page header
-│   └── footer.php                 # Shared page footer
-│   └── session.php                # Manage session
+├── /includes/                     # Shared components and configurations
+│   ├── db.php                     # Handles database connection setup
+│   ├── header.php                 # Contains the shared HTML header section
+│   ├── footer.php                 # Contains the shared HTML footer section
+│   └── session.php                # Starts and manages user sessions
 │
 ├── /pages/                        # Core application pages
-│   ├── students.php               # List all students
-│   ├── add_student.php            # Add new student
-│   ├── courses.php                # Manage courses
-│   └── enroll.php                 # Enroll students in courses
-│   └── login.php                  # Manage admin log-in
-│   └── logout.php                 # Manage admin log-out
+│   ├── students.php               # Displays a list of all students
+│   ├── add_student.php            # Form to add a new student
+│   ├── courses.php                # Page to manage courses
+│   ├── enroll.php                 # Interface for enrolling students into courses
+│   ├── login.php                  # Admin login page
+│   └── logout.php                 # Handles admin logout process
 │
-├── /assets/                       # CSS, JS, images (optional)
-│   ├── /css/
-│   └── /images/
-│   └── /js/
-├── artisan.php                   # Run-once database setup script
-├── index.php                     # Optional: redirect to students.php or dashboard
-└── README.md
+├── /assets/                       # Static assets such as CSS, JS, and images
+│   ├── /css/                      # Stylesheets for the application
+│   ├── /images/                   # Image files used in the application
+│   └── /js/                       # JavaScript files for interactive features
+│
+├── /mockup/                       # HTML mockups for prototyping and design
+│   └── iscp_mockup.html           # Initial mockup for ISCP Student Enrollment
+│
+├── artisan.php                    # Script for initial database setup and sample data insertion
+├── index.php                      # (Optional) Redirects to the main students page or dashboard
+└── README.md                      # Documentation and project overview
 ```
 
 ---
