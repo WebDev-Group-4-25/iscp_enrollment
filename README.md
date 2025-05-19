@@ -171,10 +171,16 @@ You can re-run `artisan.php` safely — it will clear `students` and `courses` t
 ## 👨‍💻 Author
 
 Made by your dev team with love (and memes) 🇵🇭  
-Inspired by the **ISCP** cultural phenomenon.
+Inspired by the **ISCP** meme.
+
+- Migueh, Rica Joi C.
+- Osana, Lester
+- Pablo, Jeremias G.
+- Sanchez, Ma. Paula S.
+- Xavier, Mikhail Gabriel
 
 ---
 
 ## 📝 License
 
-Open-source. Free to remix and meme responsibly!
+Open-source. Free to remix and meme responsibly.
