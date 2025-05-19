@@ -1,15 +1,10 @@
 <?php
-/**
- * Artisan-style setup script for Contact Manager
- *
- * Usage: Run from browser or CLI (php artisan.php)
- * Automatically creates the database, contacts table, and inserts sample data.
- */
+// artisan.php - Run this once to set up your database, tables, and insert sample data
 
 $host = 'localhost';
-$user = 'root';
-$pass = '';
-$dbname = 'contact_manager';
+$user = 'root';         // Change if using a different MySQL user
+$pass = '';             // Change if your MySQL has a password
+$dbName = 'icsp_enrollment';
 
 // Create connection
 $conn = new mysqli($host, $user, $pass);
@@ -20,37 +15,97 @@ if ($conn->connect_error) {
 }
 
 // Create database
-$conn->query("CREATE DATABASE IF NOT EXISTS $dbname");
-
-// Select database
-$conn->select_db($dbname);
-
-// Create table
-$createTable = "
-CREATE TABLE IF NOT EXISTS contacts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100),
-    phone VARCHAR(20)
-)";
-$conn->query($createTable);
-
-// Insert sample data
-$sampleData = [
-    ['Alice Johnson', 'alice@example.com', '1234567890'],
-    ['Bob Smith', 'bob@example.com', '9876543210'],
-    ['Carol White', 'carol@example.com', '5551234567']
-];
-
-$stmt = $conn->prepare("INSERT INTO contacts (name, email, phone) VALUES (?, ?, ?)");
-
-foreach ($sampleData as $contact) {
-    $stmt->bind_param("sss", $contact[0], $contact[1], $contact[2]);
-    $stmt->execute();
+$sql = "CREATE DATABASE IF NOT EXISTS $dbName";
+if ($conn->query($sql) === TRUE) {
+    echo "Database '$dbName' created or already exists.<br>";
+} else {
+    die("Error creating database: " . $conn->error);
 }
 
-$stmt->close();
-$conn->close();
+// Select the database
+$conn->select_db($dbName);
 
-echo "✅ Setup complete: Database, table, and sample contacts created.";
+// Create courses table
+$sql = "CREATE TABLE IF NOT EXISTS courses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    course_name VARCHAR(255) NOT NULL
+)";
+if ($conn->query($sql) === TRUE) {
+    echo "Table 'courses' created.<br>";
+} else {
+    die("Error creating courses table: " . $conn->error);
+}
+
+// Create students table
+$sql = "CREATE TABLE IF NOT EXISTS students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    course_id INT,
+    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE SET NULL
+)";
+if ($conn->query($sql) === TRUE) {
+    echo "Table 'students' created.<br>";
+} else {
+    die("Error creating students table: " . $conn->error);
+}
+
+// Insert meme courses
+$courses = [
+    'BS in Traffic Management and Advanced Chismis',
+    'BS in Professional Line Sitting',
+    'BS in Barangay Diplomacy',
+    'BS in Advanced Tambay Studies',
+    'BS in Sabong Analytics',
+    'BS in Jeepney Ergonomics',
+    'BS in Street Food Quality Assurance',
+    'BS in Teleserye Theory and Application'
+];
+
+$conn->query("DELETE FROM students");
+$conn->query("DELETE FROM courses");
+
+$stmt = $conn->prepare("INSERT INTO courses (course_name) VALUES (?)");
+foreach ($courses as $course) {
+    $stmt->bind_param("s", $course);
+    $stmt->execute();
+}
+$stmt->close();
+echo "Sample courses inserted.<br>";
+
+// Get course IDs
+$course_ids = [];
+$result = $conn->query("SELECT id FROM courses");
+while ($row = $result->fetch_assoc()) {
+    $course_ids[] = $row['id'];
+}
+
+// Sample students
+$students = [
+    'Bong Go',
+    'Bam Aquino',
+    'Ronald dela Rosa',
+    'Erwin Tulfo',
+    'Francis “Kiko” Pangilinan',
+    'Rodante Marcoleta',
+    'Panfilo “Ping” Lacson',
+    'Vicente Sotto III',
+    'Pia Cayetano',
+    'Camille Villar',
+    'Lito Lapid',
+    'Imee Marcos'
+];
+
+$stmt = $conn->prepare("INSERT INTO students (name, email, course_id) VALUES (?, ?, ?)");
+foreach ($students as $student) {
+    $email = strtolower(str_replace([' ', '”', '“', '–', '’', '‘', '.', '”'], '', $student)) . "@iscp.edu.ph";
+    $course_id = $course_ids[array_rand($course_ids)];
+    $stmt->bind_param("ssi", $student, $email, $course_id);
+    $stmt->execute();
+}
+$stmt->close();
+
+echo "Sample students inserted and randomly enrolled in courses.<br>";
+
+$conn->close();
 ?>
