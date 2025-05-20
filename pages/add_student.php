@@ -65,9 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <h2>Add Student</h2>
-            <div>
-                <h5 class="bg-primary text-white px-4 py-2 rounded-top mb-0 border border-bottom-0 border-1 border-secondary-subtle">Student Information</h5>
-                <div class="bg-white p-4 rounded-bottom border border-top-0 border-1 border-secondary-subtle">
+            <div class="shadow-sm mt-3 rounded">
+                <h5 class="bg-primary text-white px-4 py-2 rounded-top mb-0">Student Information</h5>
+                <div class="bg-white p-4 rounded-bottom">
                 <?php if ($errors): ?>
                     <div id="errorAlert" class="alert alert-danger">
                         <ul class="mb-0">
