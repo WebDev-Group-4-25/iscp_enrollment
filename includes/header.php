@@ -56,9 +56,26 @@ $active_page = $active_page ?? '';
     <link rel="icon" href="<?php echo $base_url; ?>/assets/images/iscp-logo.png" type="image/png" sizes="16x16" />
 
     <style>
+        /* Enable sticky footer layout */
+        html,
         body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             padding-top: 90px;
+            /* Keep your navbar offset */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        main {
+            flex: 1;
+            /* Allow main content to grow and push footer down */
         }
 
         .navbar {
@@ -80,7 +97,6 @@ $active_page = $active_page ?? '';
             padding-bottom: 8px !important;
         }
 
-        /* Additional highlighting effect for active links */
         .nav-link.active:after {
             content: '';
             position: absolute;
@@ -92,7 +108,6 @@ $active_page = $active_page ?? '';
             box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5);
         }
 
-        /* Hover effect for non-active links */
         .nav-link:not(.active):hover {
             border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         }
@@ -113,7 +128,6 @@ $active_page = $active_page ?? '';
             align-items: center;
         }
 
-        /* Navbar adjustments for mobile */
         @media (max-width: 991.98px) {
             .navbar-collapse {
                 background-color: #0d6efd;
@@ -204,5 +218,6 @@ $active_page = $active_page ?? '';
         </div>
     </nav>
 
-    <!-- Page Content Container -->
-    <div class="container py-4">
+    <!-- Main Content Wrapper -->
+    <main class="flex-grow-1">
+        <div class="container py-4">

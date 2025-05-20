@@ -13,9 +13,10 @@ $academic_year = "$current_year-$next_year";
 ?>
 
 </div><!-- End of container from header -->
+</main>
 
 <!-- Footer -->
-<footer class="bg-primary text-white py-4 fixed-bottom">
+<footer class="bg-primary text-white py-4 mt-auto">
     <div class="container">
         <div class="row">
             <div class="col-md-6 mb-3 mb-md-0">
