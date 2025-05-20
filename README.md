@@ -50,13 +50,33 @@ Make sure you have the following installed:
 
 ### 3. Configure Database Credentials
 
-Open `artisan.php` and update these lines if needed:
+To set up your database connection:
 
-```php
-$host = 'localhost';
-$user = 'root';      // your MySQL username
-$pass = '';          // your MySQL password
-```
+1. **Copy the example configuration file**  
+   Create a working `db.php` file by copying the provided example:
+
+   ```bash
+   cp includes/db.php.example includes/db.php
+   ```
+
+2. **Edit `includes/db.php`**  
+   Open the copied file and update the configuration constants with your local database settings:
+
+   ```php
+   define('DB_HOST', 'localhost');        // Database host
+   define('DB_NAME', 'your_database');    // Database name
+   define('DB_USER', 'your_username');    // Database username
+   define('DB_PASS', 'your_password');    // Database password
+   ```
+
+3. **Optional: If using `artisan.php`**  
+   If you're running scripts from `artisan.php`, ensure the following lines reflect the same credentials:
+
+   ```php
+   $host = 'localhost';
+   $user = 'root';
+   $pass = '';
+   ```
 
 ---
 
