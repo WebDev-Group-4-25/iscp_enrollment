@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/db.php';
 require '../includes/session.php';
-// require_login(); <-- uncomment once login functionality has been added
+require_login();
 include_once '../includes/header.php';
 
 // Initialize variables
@@ -15,7 +15,7 @@ $edit_id = null;
 // Handle form submission for adding or updating course
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $course_name = trim($_POST['course_name'] ?? '');
-    $edit_id = isset($_POST['edit_id']) ? (int)$_POST['edit_id'] : null;
+    $edit_id = isset($_POST['edit_id']) ? (int) $_POST['edit_id'] : null;
 
     if (!$course_name) {
         $errors[] = "Course name is required.";
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Handle delete action
 if (isset($_GET['delete'])) {
-    $delete_id = (int)$_GET['delete'];
+    $delete_id = (int) $_GET['delete'];
     // Optional: check if course has students enrolled before deleting
     $stmt = $pdo->prepare("SELECT COUNT(*) FROM students WHERE course_id = ?");
     $stmt->execute([$delete_id]);
@@ -58,7 +58,7 @@ if (isset($_GET['delete'])) {
 
 // Handle "edit" action to pre-fill form
 if (isset($_GET['edit'])) {
-    $edit_id = (int)$_GET['edit'];
+    $edit_id = (int) $_GET['edit'];
     $stmt = $pdo->prepare("SELECT * FROM courses WHERE id = ?");
     $stmt->execute([$edit_id]);
     $course = $stmt->fetch();
@@ -75,8 +75,8 @@ $courses = $pdo->query("SELECT * FROM courses ORDER BY id ASC")->fetchAll();
 ?>
 
 <head>
-  <meta charset="UTF-8" />
-  <title><?php echo isset($page_title) ? htmlspecialchars($page_title) : 'Default Title'; ?></title>
+    <meta charset="UTF-8" />
+    <title><?php echo isset($page_title) ? htmlspecialchars($page_title) : 'Default Title'; ?></title>
 </head>
 <div class="row">
     <div class="col-md-6">
@@ -100,14 +100,8 @@ $courses = $pdo->query("SELECT * FROM courses ORDER BY id ASC")->fetchAll();
             <input type="hidden" name="edit_id" value="<?= $edit_id ?? '' ?>">
             <div class="mb-3">
                 <label for="course_name" class="form-label">Course Name</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="course_name"
-                    name="course_name"
-                    value="<?= htmlspecialchars($course_name) ?>"
-                    required
-                >
+                <input type="text" class="form-control" id="course_name" name="course_name"
+                    value="<?= htmlspecialchars($course_name) ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">
                 <?= $edit_id ? "Update Course" : "Add Course" ?>
@@ -138,11 +132,8 @@ $courses = $pdo->query("SELECT * FROM courses ORDER BY id ASC")->fetchAll();
                             <td><?= htmlspecialchars($c['course_name']) ?></td>
                             <td>
                                 <a href="?edit=<?= $c['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                                <a
-                                    href="?delete=<?= $c['id'] ?>"
-                                    class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Are you sure you want to delete this course?');"
-                                >
+                                <a href="?delete=<?= $c['id'] ?>" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this course?');">
                                     Delete
                                 </a>
                             </td>

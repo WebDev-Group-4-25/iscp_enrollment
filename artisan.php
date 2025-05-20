@@ -4,7 +4,7 @@
 $host = 'localhost';
 $user = 'root';         // Change if using a different MySQL user
 $pass = '';             // Change if your MySQL has a password
-$dbName = 'icsp_enrollment';
+$dbName = 'iscp_enrollment';
 
 // Create connection
 $conn = new mysqli($host, $user, $pass);

@@ -1,5 +1,5 @@
 <?php
-$base_url = '/icsp_enrollment';
+$base_url = '/iscp_enrollment';
 
 /**
  * Header template for Student Enrollment System
