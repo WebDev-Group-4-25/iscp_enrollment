@@ -29,14 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email address format.";
     }
-    if (!$course_id) {
-        $errors[] = "Please select a course.";
-    }
 
     if (empty($errors)) {
         // Add new student
         $stmt = $pdo->prepare("INSERT INTO students (name, email, course_id) VALUES (?, ?, ?)");
-        $stmt->execute([$name, $email, $course_id]);
+        $stmt->execute([$name, $email, null]);
         $success = "Student added successfully.";
 
         // Reset variables after success
@@ -94,18 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="email" class="form-control" id="email" name="email"
                                 value="<?= htmlspecialchars($email) ?>" required>
                             <div class="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="course_id" class="form-label">Course</label>
-                            <select class="form-select" id="course_id" name="course_id" required>
-                                <option value="" disabled <?= $course_id ? '' : 'selected' ?>>-- Select Course --
-                                </option>
-                                <?php foreach ($courses as $c): ?>
-                                    <option value="<?= $c['id'] ?>" <?= $course_id == $c['id'] ? "selected" : "" ?>>
-                                        <?= htmlspecialchars($c['course_name']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-secondary me-2" onclick="resetForm();">
