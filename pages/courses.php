@@ -2,7 +2,6 @@
 require_once '../includes/db.php';
 require '../includes/session.php';
 require_login();
-include_once '../includes/header.php';
 
 // Initialize variables
 $page_title = "Courses | ISCP Enrollment System";
@@ -73,6 +72,8 @@ if (isset($_GET['edit'])) {
 // Fetch all courses
 $courses = $pdo->query("SELECT * FROM courses ORDER BY id ASC")->fetchAll();
 ?>
+
+<?php include '../includes/header.php'; ?>
 
 <head>
     <meta charset="UTF-8" />
@@ -145,4 +146,4 @@ $courses = $pdo->query("SELECT * FROM courses ORDER BY id ASC")->fetchAll();
     </div>
 </div>
 
-<?php include_once '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

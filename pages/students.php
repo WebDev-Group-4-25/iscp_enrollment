@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/session.php';
-require_login(); // Enforce login before loading anything
+require_login();
 require_once __DIR__ . '/../includes/db.php';
 
 $page_title = "Students | ISCP Enrollment System";
@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['flash'] = "Student deleted successfully.";
         header("Location: students.php");
         exit;
-    } 
-    
+    }
+
     if (isset($_POST['action']) && $_POST['action'] === 'update' && isset($_POST['student_id'])) {
         // Input Validation
         $student_id = $_POST['student_id'];
@@ -64,12 +64,14 @@ if (isset($_GET['edit'])) {
 
             <div class="mb-3">
                 <label for="name" class="form-label">Full Name</label>
-                <input type="text" class="form-control" name="name" id="name" required value="<?= htmlspecialchars($student['name']) ?>">
+                <input type="text" class="form-control" name="name" id="name" required
+                    value="<?= htmlspecialchars($student['name']) ?>">
             </div>
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email" required value="<?= htmlspecialchars($student['email']) ?>">
+                <input type="email" class="form-control" name="email" id="email" required
+                    value="<?= htmlspecialchars($student['email']) ?>">
             </div>
 
             <div class="mb-3">
@@ -104,7 +106,7 @@ $students = $stmt->fetchAll();
 include '../includes/header.php';
 
 if (isset($_SESSION['flash'])) {
-    echo '<div class="alert alert-success">'.htmlspecialchars($_SESSION['flash']).'</div>';
+    echo '<div class="alert alert-success">' . htmlspecialchars($_SESSION['flash']) . '</div>';
     unset($_SESSION['flash']);
 }
 ?>
@@ -128,22 +130,23 @@ if (isset($_SESSION['flash'])) {
             </thead>
             <tbody>
                 <?php foreach ($students as $index => $student): ?>
-                <tr>
-                    <td><?= $index + 1 ?></td>
-                    <td><?= htmlspecialchars($student['name']) ?></td>
-                    <td><?= htmlspecialchars($student['email']) ?></td>
-                    <td><?= htmlspecialchars($student['course_name']) ?></td>
-                    <td class="text-center">
-                        <a href="students.php?edit=<?= $student['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                    <tr>
+                        <td><?= $index + 1 ?></td>
+                        <td><?= htmlspecialchars($student['name']) ?></td>
+                        <td><?= htmlspecialchars($student['email']) ?></td>
+                        <td><?= htmlspecialchars($student['course_name']) ?></td>
+                        <td class="text-center">
+                            <a href="students.php?edit=<?= $student['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
 
-                        <form action="students.php" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="student_id" value="<?= $student['id'] ?>">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
+                            <form action="students.php" method="POST" class="d-inline"
+                                onsubmit="return confirm('Are you sure?');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="student_id" value="<?= $student['id'] ?>">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 <?php endforeach ?>
             </tbody>
         </table>

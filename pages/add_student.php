@@ -2,7 +2,6 @@
 require_once '../includes/db.php';
 require '../includes/session.php';
 require_login();
-include_once '../includes/header.php';
 
 // Initialize variables
 $page_title = "Add Student | ISCP Enrollment System";
@@ -48,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+<?php include '../includes/header.php'; ?>
+
 <head>
     <meta charset="UTF-8" />
     <title><?php echo isset($page_title) ? htmlspecialchars($page_title) : 'Default Title'; ?></title>
@@ -68,15 +69,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="shadow-sm mt-3 rounded">
                 <h5 class="bg-primary text-white px-4 py-2 rounded-top mb-0">Student Information</h5>
                 <div class="bg-white p-4 rounded-bottom">
-                <?php if ($errors): ?>
-                    <div id="errorAlert" class="alert alert-danger">
-                        <ul class="mb-0">
-                            <?php foreach ($errors as $err): ?>
-                                <li><?= htmlspecialchars($err) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                <?php endif; ?>
+                    <?php if ($errors): ?>
+                        <div id="errorAlert" class="alert alert-danger">
+                            <ul class="mb-0">
+                                <?php foreach ($errors as $err): ?>
+                                    <li><?= htmlspecialchars($err) ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if ($success): ?>
                         <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
@@ -97,7 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="mb-3">
                             <label for="course_id" class="form-label">Course</label>
                             <select class="form-select" id="course_id" name="course_id" required>
-                                <option value="" disabled <?= $course_id ? '' : 'selected' ?>>-- Select Course --</option>
+                                <option value="" disabled <?= $course_id ? '' : 'selected' ?>>-- Select Course --
+                                </option>
                                 <?php foreach ($courses as $c): ?>
                                     <option value="<?= $c['id'] ?>" <?= $course_id == $c['id'] ? "selected" : "" ?>>
                                         <?= htmlspecialchars($c['course_name']) ?>
@@ -120,4 +122,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<?php include_once '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
