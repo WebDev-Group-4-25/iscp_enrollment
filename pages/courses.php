@@ -79,70 +79,72 @@ $courses = $pdo->query("SELECT * FROM courses ORDER BY id ASC")->fetchAll();
     <meta charset="UTF-8" />
     <title><?php echo isset($page_title) ? htmlspecialchars($page_title) : 'Default Title'; ?></title>
 </head>
-<div class="row">
-    <div class="col-md-6">
-        <h2><?= $edit_id ? "Edit Course" : "Add Course" ?></h2>
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2><?= $edit_id ? "Edit Course" : "Add Course" ?></h2>
 
-        <?php if ($errors): ?>
-            <div class="alert alert-danger">
-                <ul>
-                    <?php foreach ($errors as $err): ?>
-                        <li><?= htmlspecialchars($err) ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($success): ?>
-            <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
-        <?php endif; ?>
-
-        <form method="POST" novalidate>
-            <input type="hidden" name="edit_id" value="<?= $edit_id ?? '' ?>">
-            <div class="mb-3">
-                <label for="course_name" class="form-label">Course Name</label>
-                <input type="text" class="form-control" id="course_name" name="course_name"
-                    value="<?= htmlspecialchars($course_name) ?>" required>
-            </div>
-            <button type="submit" class="btn btn-primary">
-                <?= $edit_id ? "Update Course" : "Add Course" ?>
-            </button>
-            <?php if ($edit_id): ?>
-                <a href="courses.php" class="btn btn-secondary ms-2">Cancel</a>
+            <?php if ($errors): ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach ($errors as $err): ?>
+                            <li><?= htmlspecialchars($err) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             <?php endif; ?>
-        </form>
-    </div>
 
-    <div class="col-md-6">
-        <h2>Existing Courses</h2>
-        <?php if (count($courses) === 0): ?>
-            <p>No courses found.</p>
-        <?php else: ?>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Course Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($courses as $c): ?>
+            <?php if ($success): ?>
+                <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+            <?php endif; ?>
+
+            <form method="POST" novalidate>
+                <input type="hidden" name="edit_id" value="<?= $edit_id ?? '' ?>">
+                <div class="mb-3">
+                    <label for="course_name" class="form-label">Course Name</label>
+                    <input type="text" class="form-control" id="course_name" name="course_name"
+                        value="<?= htmlspecialchars($course_name) ?>" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <?= $edit_id ? "Update Course" : "Add Course" ?>
+                </button>
+                <?php if ($edit_id): ?>
+                    <a href="courses.php" class="btn btn-secondary ms-2">Cancel</a>
+                <?php endif; ?>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <h2>Existing Courses</h2>
+            <?php if (count($courses) === 0): ?>
+                <p>No courses found.</p>
+            <?php else: ?>
+                <table class="table table-bordered table-striped">
+                    <thead>
                         <tr>
-                            <td><?= $c['id'] ?></td>
-                            <td><?= htmlspecialchars($c['course_name']) ?></td>
-                            <td>
-                                <a href="?edit=<?= $c['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="?delete=<?= $c['id'] ?>" class="btn btn-sm btn-danger"
-                                    onclick="return confirm('Are you sure you want to delete this course?');">
-                                    Delete
-                                </a>
-                            </td>
+                            <th>ID</th>
+                            <th>Course Name</th>
+                            <th>Actions</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($courses as $c): ?>
+                            <tr>
+                                <td><?= $c['id'] ?></td>
+                                <td><?= htmlspecialchars($c['course_name']) ?></td>
+                                <td>
+                                    <a href="?edit=<?= $c['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                                    <a href="?delete=<?= $c['id'] ?>" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this course?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
 

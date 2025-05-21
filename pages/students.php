@@ -79,13 +79,13 @@ if (isset($_GET['edit'])) {
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" name="name" id="name" required
-                                       value="<?= htmlspecialchars($student['name']) ?>">
+                                    value="<?= htmlspecialchars($student['name']) ?>">
                             </div>
 
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" id="email" required
-                                       value="<?= htmlspecialchars($student['email']) ?>">
+                                    value="<?= htmlspecialchars($student['email']) ?>">
                             </div>
 
                             <div class="mb-3">
@@ -140,69 +140,65 @@ $all_courses = $pdo->query("SELECT * FROM courses")->fetchAll();
 ?>
 
 <div class="container my-4">
-    <div class="bg-white rounded shadow-sm p-4 mb-4">
-        <h2 class="mb-4">Students List</h2>
+    <h2 class="mb-4">Students List</h2>
 
-        <?php if (isset($_SESSION['flash'])): ?>
-            <div class="alert alert-success mb-4 mx-auto" style="max-width: 600px;">
-                <?= htmlspecialchars($_SESSION['flash']) ?>
-            </div>
-            <?php unset($_SESSION['flash']); ?>
-        <?php endif; ?>
-
-        <div class="row align-items-center mb-3">
-            <div class="col-md-6">
-                <form method="GET" class="d-flex align-items-center gap-3">
-                    <label for="courseFilter" class="mb-0 flex-shrink-0">Filter by Course:</label>
-                    <select name="course_id" id="courseFilter" class="form-select" onchange="this.form.submit()">
-                        <option value="">-- All Courses --</option>
-                        <?php foreach ($all_courses as $course): ?>
-                            <option value="<?= $course['id'] ?>" <?= $filter_course_id == $course['id'] ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($course['course_name']) ?>
-                            </option>
-                        <?php endforeach ?>
-                    </select>
-                    <a href="students.php" class="btn btn-outline-secondary">Reset</a>
-                </form>
-            </div>
-
-            <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                <a href="add_student.php" class="btn btn-primary">+ Add Student</a>
-            </div>
+    <?php if (isset($_SESSION['flash'])): ?>
+        <div class="alert alert-success mb-4 mx-auto" style="max-width: 600px;">
+            <?= htmlspecialchars($_SESSION['flash']) ?>
         </div>
+        <?php unset($_SESSION['flash']); ?>
+    <?php endif; ?>
 
-        <table class="table table-hover table-bordered align-middle mb-0">
-            <thead class="table-light text-uppercase small text-secondary">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Course</th>
-                    <th scope="col" class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($students as $index => $student): ?>
-                    <tr>
-                        <td><?= $index + 1 ?></td>
-                        <td><?= htmlspecialchars($student['name']) ?></td>
-                        <td><?= htmlspecialchars($student['email']) ?></td>
-                        <td><?= htmlspecialchars($student['course_name']) ?></td>
-                        <td class="text-center">
-                            <a href="students.php?edit=<?= $student['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
-
-                            <form action="students.php" method="POST" class="d-inline"
-                                  onsubmit="return confirm('Are you sure?');">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="student_id" value="<?= $student['id'] ?>">
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+    <div class="d-md-flex justify-content-between align-items-center mb-3 gap-3">
+        <form method="GET" class="d-flex align-items-center gap-3 flex-grow-1">
+            <label for="courseFilter" class="mb-0 flex-shrink-0">Filter by Course:</label>
+            <select name="course_id" id="courseFilter" class="form-select" onchange="this.form.submit()">
+                <option value="">-- All Courses --</option>
+                <?php foreach ($all_courses as $course): ?>
+                    <option value="<?= $course['id'] ?>" <?= $filter_course_id == $course['id'] ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($course['course_name']) ?>
+                    </option>
                 <?php endforeach ?>
-            </tbody>
-        </table>
+            </select>
+            <a href="students.php" class="btn btn-outline-secondary">Reset</a>
+        </form>
+
+        <div class="mt-3 mt-md-0">
+            <a href="add_student.php" class="btn btn-primary">+ Add Student</a>
+        </div>
     </div>
+
+    <table class="table table-hover table-bordered align-middle mb-0">
+        <thead class="table-light text-uppercase small text-secondary">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Course</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($students as $index => $student): ?>
+                <tr>
+                    <td><?= $index + 1 ?></td>
+                    <td><?= htmlspecialchars($student['name']) ?></td>
+                    <td><?= htmlspecialchars($student['email']) ?></td>
+                    <td><?= htmlspecialchars($student['course_name']) ?></td>
+                    <td class="text-center">
+                        <a href="students.php?edit=<?= $student['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+
+                        <form action="students.php" method="POST" class="d-inline"
+                            onsubmit="return confirm('Are you sure?');">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="student_id" value="<?= $student['id'] ?>">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
 </div>
 
 <?php include '../includes/footer.php'; ?>
