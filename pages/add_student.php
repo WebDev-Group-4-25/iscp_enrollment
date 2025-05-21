@@ -61,9 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </script>
 </head>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
+<div class="container my-4">
+    <div class="row">
+        <div class="col">
             <h2>Add Student</h2>
             <div class="shadow-sm mt-3 rounded">
                 <h5 class="bg-primary text-white px-4 py-2 rounded-top mb-0">Student Information</h5>
